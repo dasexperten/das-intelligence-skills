@@ -104,6 +104,38 @@ curl -s -X POST "https://world.openbeautyfacts.org/cgi/product_jqm2.pl" \
 The same Open Food Facts account works across the OFF family; use the correct sibling for the product
 type (beauty/cosmetics → Open Beauty Facts). Verify: `GET /api/v2/product/<EAN>.json` → check `link`.
 
+## Channel catalogue (from the 2026-07 auto-submit scan)
+
+**Backlink / citation channels (create a public link):**
+- **Open Beauty Facts** — `yes-now` (free account, no captcha). Product page per EAN with a `link` to
+  the brand site + brand facet page. *Proven — see method above.* Cosmetics/oral-care only; use the
+  correct OFF-family sibling per product type.
+- **Wikidata** (`wbeditentity`/`wbsetclaim`/`wbsetreference`) — `yes-with-account`. Highest durability
+  (feeds Knowledge Graph + LLMs). The item may already exist; add `official website` (P856),
+  multilingual labels/descriptions, product statements — each sourced. Needs a logged-in account /
+  bot password (account creation is captcha-gated → one-time human step).
+- **Wikimedia Commons** (MediaWiki `action=upload`/`edit`) — `yes-with-account`. Product/logo image
+  with a description linking the site; same Wikimedia login as Wikidata.
+- **Code-forge profiles** (GitHub / GitLab / Codeberg) — `yes-with-account`, no captcha via API once
+  the account exists. Org/user profile + profile-README with a website link (often nofollow, still a
+  high-authority citation).
+- **Generic barcode DBs** (UPCitemdb / upcdatabase.org) — `yes-with-account`, API-key. Product record
+  with a brand URL; lower authority, mark link type on verify.
+
+**Indexing / feed submission (no backlink, but accelerates crawl & AI-search inclusion — do these
+too, they're pure `yes-now`):**
+- **IndexNow** (`api.indexnow.org` / `bing.com/indexnow`, covers Bing · Yandex · Seznam · Naver) —
+  host a `<key>.txt` at site root, then POST `{host,key,keyLocation,urlList}`. Submit **all locale
+  URLs** so non-English markets get crawled (Yandex → RU/UK/TR, Seznam → CZ). *Proven.*
+- **Google Indexing API** — `yes-with-account` (service-account JSON); officially job-posting/
+  livestream only, use with care.
+- **WebSub/PubSubHubbub** + **Ping-O-Matic** — `yes-now` but require the site to expose an RSS/Atom
+  feed; feed-update pings, weak/transient public footprint.
+
+**Rejected:** DBpedia (read-only downstream of Wikipedia), EAN-Search (no open write), Gravatar /
+about.me (captcha), OpenStreetMap (physical-place mapping — not a citation channel), Mastodon
+(captcha on open instances). Never use link-farm / auto-directory-blast tools.
+
 ## Output
 
 Always provide: a table of channels found (with automatable rating + method), the list of links
