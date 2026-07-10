@@ -85,3 +85,12 @@ skill-name/
 ## Status
 
 Early foundation stage.
+
+## DESIGN SSOT
+The single source of truth for ANY design matter — design systems,
+UI/UX rules, banners, product cards, characters, packaging,
+design skills, design decisions in any project — is:
+https://github.com/dasexperten/deSIGNER
+Design files in this repository are working copies / backups.
+On any conflict, deSIGNER wins. Before starting any design task,
+read deSIGNER/MASTER_INDEX.md.
