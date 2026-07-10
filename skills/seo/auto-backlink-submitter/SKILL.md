@@ -1,0 +1,98 @@
+# Auto Backlink Submitter
+
+## Purpose
+
+Create legitimate off-site backlinks and brand citations through **fully automatic submission** —
+open write APIs and no-captcha / no-email-verify endpoints — instead of manual form-filling or email
+outreach. A GEO/off-page supporting skill: it grows referring domains and entity citations that both
+classic search and AI answer engines weight, with zero human clicks per link.
+
+## When to Use
+
+Use this skill when the task is to:
+
+- build foundational backlinks / brand citations at scale without manual submission;
+- add a brand's products to open product/ingredient databases (e.g. Open Beauty Facts);
+- discover which directories, knowledge bases, or APIs accept programmatic submission;
+- support a domain-authority / GEO growth plan's link-acquisition phase.
+
+## When Not to Use
+
+Do not use this skill when:
+
+- the target requires captcha, email verification, or manual editorial review (route to the
+  semi-manual submission flow or to outreach instead — see `sales/` outreach skills);
+- the only path is buying links or posting to link farms / PBNs — **forbidden**, it triggers
+  toxic-link penalties and defeats the goal;
+- the platform's ToS prohibits automated/bot submissions.
+
+## Inputs
+
+Brand name, site URL, canonical product URLs, EAN/GTIN barcodes, full INCI/spec per SKU, entity IDs
+(e.g. Wikidata QID), and any existing platform credentials from the estate secret store.
+
+## Core Principle
+
+**Only legitimate, real records.** Every submission must be a genuine, accurate entry (real product,
+real company) on a platform designed to accept it. Authority + truthfulness beats volume — one real
+Open Beauty Facts product page outranks fifty spun directory listings and carries no penalty risk.
+
+## Workflow
+
+1. **Inventory** the brand assets (site, product URLs, barcodes, INCI, entity IDs) and pull any
+   existing platform accounts from secrets.
+2. **Discover** auto-submittable channels — run the discovery fan-out (see *Discovery pattern*).
+   Classify each: `yes-now` (scriptable today, no captcha/verify), `yes-with-account` (needs a
+   scriptable login/API key you can set up), `no` (captcha/verify/manual → hand off).
+3. **Execute** every `yes-now` channel with a scripted request. Register an account first where the
+   write API requires credentials (store them in the secret store, never in memory).
+4. **Verify** each link is live: fetch the created record's public URL and confirm the outbound link
+   to the brand site is present.
+5. **Log** every created link (platform, URL, link target, date) into the campaign's referring-domain
+   tracker. Store new credentials in the estate secret store.
+6. **Hand off** `no` channels with paste-ready copy for the semi-manual flow.
+
+## Discovery pattern (multi-agent)
+
+Fan out one researcher per channel class, each verifying against the real site/API docs (not memory):
+open product/ingredient/barcode DBs · editable wikis / structured-data KBs · no-captcha directories ·
+API-key platforms · URL-submission / feed endpoints · profile/identity APIs. Each returns: platform,
+exact endpoint + method, auth model, captcha?, email-verify?, `automatable` rating, what link is
+published, and a ready request. Execute the `yes-now` set; queue `yes-with-account`.
+
+## Proven channel — Open Beauty Facts (write API, account required, no captcha)
+
+Cosmetics/oral-care open database; each product page carries an outbound `link` to the brand site,
+plus an auto-generated `/brand/<slug>` facet page. Anonymous writes are rejected; a free account
+(created via `cgi/user.pl`) is enough — no captcha, no email gate on the write path.
+
+```bash
+# Add / edit a product (repeat per SKU)
+curl -s -X POST "https://world.openbeautyfacts.org/cgi/product_jqm2.pl" \
+  --data-urlencode "code=<EAN13>" \
+  --data-urlencode "user_id=<account>"  --data-urlencode "password=<password>" \
+  --data-urlencode "product_name_en=<Brand Product — type>" \
+  --data-urlencode "brands=<Brand>"  --data-urlencode "categories=Toothpastes" \
+  --data-urlencode "quantity=<size>" \
+  --data-urlencode "link=https://<brand-site>/product/<slug>" \
+  --data-urlencode "ingredients_text_en=<full INCI>" \
+  -H "User-Agent: <Brand>-DataSubmission/1.0 (<email>)"
+# success: {"status":1,"status_verbose":"fields saved"}
+```
+
+The same Open Food Facts account works across the OFF family; use the correct sibling for the product
+type (beauty/cosmetics → Open Beauty Facts). Verify: `GET /api/v2/product/<EAN>.json` → check `link`.
+
+## Output
+
+Always provide: a table of channels found (with automatable rating + method), the list of links
+actually created (platform, live URL, link target), any credentials to store, verification status per
+link, and the `no` channels handed off with paste-ready copy.
+
+## Common Mistakes
+
+- Submitting to captcha/verify-gated sites via bot (fails or gets flagged) — classify first.
+- Miscategorizing products into the wrong open-DB sibling (junk data, gets reverted).
+- Fabricating entries or spamming duplicates — penalty and account ban risk.
+- Storing new credentials in chat/memory instead of the secret store.
+- Counting a submission before verifying the public record + outbound link are live.

@@ -31,6 +31,7 @@ skill-name/
 14. `seo-content-brief-builder`
 15. `site-architecture-planner`
 16. `seo-performance-monitor`
+17. `auto-backlink-submitter`
 
 ## Usage Logic
 
