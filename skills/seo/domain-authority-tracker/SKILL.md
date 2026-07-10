@@ -31,6 +31,13 @@ exists.
 count) as the source of truth and never delete a row — trend continuity survives tool changes and
 rate limits. DR/DA are secondary corroboration.
 
+## Track every market, not just English
+
+Authority and rankings are per-language. Spot-check target keywords and read GSC clicks/impressions
+**per locale the site serves** (mirror its actual locale set), and tag referring domains by
+language/market so the snapshot shows geographic spread — not an English-only view. A market moving
+from 0 to a handful of local-language citations is real progress the global DR number can hide.
+
 ## Workflow
 
 1. **Baseline (once).** Capture with free checkers:

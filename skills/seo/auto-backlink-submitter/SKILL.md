@@ -37,6 +37,25 @@ Brand name, site URL, canonical product URLs, EAN/GTIN barcodes, full INCI/spec 
 real company) on a platform designed to accept it. Authority + truthfulness beats volume — one real
 Open Beauty Facts product page outranks fifty spun directory listings and carries no penalty risk.
 
+## Multilingual by default — cover every market, not just English
+
+Discovery MUST run across **every language/market the site serves**, not English-only. Global open
+databases (Open Beauty Facts, Wikidata) accept localized fields — add native product names,
+descriptions, and language labels per locale. On top of that, each market has its **own**
+auto-submittable, high-authority local platforms (national barcode/product/ingredient DBs, open local
+business registries, country wikis) that a global sweep misses. A citation from a local-language,
+country-relevant source is worth more in that market's SERP and AI answers than another English one.
+
+- Run one discovery pass **per language market** the site targets (e.g. en, de, ru, es, fr, pl, tr,
+  uk, ar, zh, vi, th, tl, ms — mirror the site's actual locale set).
+- Fill localized fields on global platforms (multilingual labels/descriptions feed non-English
+  engines and the Knowledge Graph).
+- Record each created link with its language/market so the referring-domain tracker shows market
+  spread, not just an English cluster.
+- Respect per-region infra rules (e.g. a locale whose DNS/hosting lives outside the main provider is
+  still fine to cite from local directories — the rule is about not touching that zone's DNS, not
+  about avoiding its language's link sources).
+
 ## Workflow
 
 1. **Inventory** the brand assets (site, product URLs, barcodes, INCI, entity IDs) and pull any
@@ -54,11 +73,13 @@ Open Beauty Facts product page outranks fifty spun directory listings and carrie
 
 ## Discovery pattern (multi-agent)
 
-Fan out one researcher per channel class, each verifying against the real site/API docs (not memory):
-open product/ingredient/barcode DBs · editable wikis / structured-data KBs · no-captcha directories ·
-API-key platforms · URL-submission / feed endpoints · profile/identity APIs. Each returns: platform,
-exact endpoint + method, auth model, captcha?, email-verify?, `automatable` rating, what link is
-published, and a ready request. Execute the `yes-now` set; queue `yes-with-account`.
+Fan out researchers on **two axes** — channel class × language market — each verifying against the
+real site/API docs (not memory): open product/ingredient/barcode DBs · editable wikis / structured-
+data KBs · no-captcha directories · API-key platforms · URL-submission / feed endpoints ·
+profile/identity APIs — repeated for every locale the site serves (surface each market's *local*
+platforms, not just the global English ones). Each returns: platform, language/market, exact endpoint
++ method, auth model, captcha?, email-verify?, `automatable` rating, what link is published, and a
+ready request. Execute the `yes-now` set; queue `yes-with-account`.
 
 ## Proven channel — Open Beauty Facts (write API, account required, no captcha)
 

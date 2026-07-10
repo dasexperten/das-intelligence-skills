@@ -33,7 +33,6 @@ skill-name/
 16. `seo-performance-monitor`
 17. `auto-backlink-submitter`
 18. `domain-authority-tracker`
-19. `link-prospecting-outreach`
 
 ## Usage Logic
 
