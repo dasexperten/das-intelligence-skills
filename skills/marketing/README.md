@@ -1,6 +1,6 @@
 # Marketing Skills
 
-This folder contains practical marketing skills for brand strategy, positioning, customer research, growth, launch planning, retention, referrals, PR, crisis communication, pricing, storytelling, and market entry.
+This folder contains practical marketing skills for brand strategy, positioning, customer research, growth, launch planning, retention, referrals, PR, crisis communication, pricing, storytelling, market entry, and paid acquisition through Google Ads.
 
 ## Structure
 
@@ -38,6 +38,34 @@ skill-name/
 21. `market-entry-strategist`
 22. `launch-campaign-planner`
 
+## Google Ads Master Pack
+
+Location:
+
+```text
+skills/marketing/google-ads/
+```
+
+Index:
+
+```text
+skills/marketing/google-ads/README.md
+```
+
+Completed Google Ads master skills:
+
+1. `google-ads-performance-director`
+2. `conversion-value-tracking-auditor`
+3. `google-ads-roas-optimizer`
+4. `google-ads-cpa-optimizer`
+5. `google-ads-cpc-quality-score-optimizer`
+6. `search-campaign-query-optimizer`
+7. `performance-max-optimizer`
+8. `budget-bidding-strategy-planner`
+9. `google-ads-experiment-planner`
+
+Use this pack for measurement, ROAS, CPA, CPC, Search campaigns, Performance Max, bidding, budgets, and controlled experiments.
+
 ## Usage Logic
 
 Use strategy skills first when the business direction is unclear:
@@ -72,8 +100,18 @@ Use trust, loyalty, and communication skills when the goal is reputation or long
 - `crisis-communications-expert`
 - `storytelling-architect`
 
+Use the Google Ads pack when paid search or automated Google campaigns need performance improvement:
+
+- unclear objective → `google-ads-performance-director`
+- tracking or values → `conversion-value-tracking-auditor`
+- ROAS → `google-ads-roas-optimizer`
+- CPA → `google-ads-cpa-optimizer`
+- CPC or Quality Score → `google-ads-cpc-quality-score-optimizer`
+- search terms or match types → `search-campaign-query-optimizer`
+- Performance Max → `performance-max-optimizer`
+- bidding or budget → `budget-bidding-strategy-planner`
+- experiments → `google-ads-experiment-planner`
+
 ## Status
 
-Marketing skill set is complete for the current foundation stage.
-
-Next category: Website skills.
+Marketing foundation and Google Ads master pack are complete for the current KISS stage.
