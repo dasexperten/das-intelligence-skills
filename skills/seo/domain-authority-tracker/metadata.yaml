@@ -1,0 +1,13 @@
+name: domain-authority-tracker
+version: 0.1.0
+status: draft
+quality_level: core
+category: seo
+compatible_with:
+  - claude
+  - chatgpt
+  - cursor
+  - vscode
+  - opencode
+maintainer: Das Experten
+last_updated: 2026-07-10
