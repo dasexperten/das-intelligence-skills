@@ -25,6 +25,22 @@ This file is the **router**. It contains hard rules, inbox map, selection logic,
 
 ---
 
+## AGENT MAILBOXES — named department heads
+
+Five of the ten Founding Ten (`dasexperten/organizacia`, the Personnel SSOT) have provisioned mailboxes. These are **real named identities**, not gender-mirrored pool personas — one fixed name per inbox, no gender-mirror swap. Full roster, routing triggers, and signature blocks: `virtual-staff/agents.md`. Avatar hard rule (portrait required wherever the name/signature appears): `virtual-staff/agent-avatars.md`.
+
+| Inbox | Agent | Role |
+|---|---|---|
+| `lauda@dasexperten.com` | Lauda Briana | Head of Commerce |
+| `roberta@dasexperten.com` | Roberta Di Maria | Head of Content |
+| `marika@dasexperten.com` | Marika Nowicka | Head of Brand |
+| `valentina@dasexperten.com` | Valentina Korolyeva | Head of Legal |
+| `justina@dasexperten.com` | Justina Timber | Head of Finance |
+
+Prefer the agent mailbox over a functional inbox when the department head owns the thread (see `agents.md` "WHEN TO USE AGENT MAILBOXES" for the trigger-by-topic table); functional inboxes (`sales@`, `partnerships@`, `marketing@`, …) remain valid otherwise. Remaining five (`lena@`, `alexandra@`/`sasha@`, `mina@`, `zina@`, `maya@`) are **reserved, not provisioned** — route via functional inboxes until Aram assigns a mailbox.
+
+---
+
 ## GATE PROTOCOL — when to load which sub-reference
 
 This router stays thin by default. Sub-references load only when needed.
@@ -81,6 +97,15 @@ This router stays thin by default. Sub-references load only when needed.
 - Calling skill passes `inbox: support` parameter
 - Body topic is return / refund / replacement / warranty / order issue
 - Continuity check finds an existing thread signed by a support@ persona
+
+**Load `virtual-staff/agents.md` when ANY of these match:**
+- B2B distributor/buyer cold or deal thread owned by Commerce → `lauda@`
+- SEO / guest post / editor PR / content partnership → `roberta@`
+- Brand / creative collaboration / design partner → `marika@`
+- Contract / NDA / compliance (`legalizer` output) → `valentina@`
+- Invoice / pricing / unit economics (`invoicer` output) → `justina@`
+- Calling skill explicitly names a Founding Ten agent (Lauda, Roberta, Marika, Valentina, Justina) or passes `signer_name_explicit`
+- Continuity check finds an existing thread signed by one of these five agents
 
 ### Multi-inbox case
 
@@ -251,6 +276,7 @@ If adding new persona — load all 8 sub-references and the das-presenter virtua
 
 ## CHANGE LOG
 
+- **2026-07-16 (v4.2)** — +AGENT MAILBOXES section and gate trigger for the 5 provisioned Founding Ten mailboxes (`lauda@`, `roberta@`, `marika@`, `valentina@`, `justina@`), sourced from `dasexperten/organizacia` (Personnel SSOT). New sub-references: `virtual-staff/agents.md`, `virtual-staff/agent-avatars.md`. These mailboxes previously existed only in `organizacia`'s copy of this skill and were not wired into ALLOWED_FROM (see `SKILL.md` §2.2) — brought into sync across all skill mirrors.
 - **2026-07-13 (v4.1)** — +3 inboxes: marketing@ reactivated on own address, partnerships@ (SEO/GEO outreach, default for seo-master), hello@ (warm brand front). Gate triggers and Selection Logic updated; UGC override re-routed to marketing@ with legacy fallback; cross-skill inbox enum extended (asean added — was missing); emailer-bridge reference replaced with Resend. Sub-reference count: 8.
 
 - **2026-05-03** — Restructure to 5-inbox + lazy-load architecture. This file becomes the router; rosters and signature blocks moved to per-inbox sub-references in `virtual-staff/`. Gate protocol added. 24 staff distributed across 5 inboxes (eurasia 5, emea 6, marketing 4, sales 4, support 5). Old language-block architecture replaced. New rules: language-name match, inbox-purpose routing, stage-based title shift, single-language pool exception. `export@` deprecated for outbound.
